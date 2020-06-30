@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 생성일 : 2020.04.27 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="soloyolo.Member">
+<!-- 
+	[ DB ]
+	USERNO NUMBER PRIMARY KEY, 
+	USERID VARCHAR2( 1000 ) UNIQUE NOT NULL, 
+	USERPW VARCHAR2( 1000 ) NOT NULL, 
+	NAME VARCHAR2( 1000 ) NOT NULL, 
+	NICKNAME VARCHAR2( 2000 ) NOT NULL, 
+	EMAIL VARCHAR2( 2000 ) NOT NULL, 
+	PHONE VARCHAR2( 2000 ) NOT NULL, 
+	HEIGHT NUMBER NOT NULL, 
+	WEIGHT NUMBER NOT NULL, 
+	POSTCODE NUMBER NOT NULL, 
+	ADDR VARCHAR2( 2000 ) NOT NULL, 
+	ADDR_DETAIL VARCHAR2( 2000 ) NOT NULL, 
+	ADDR_X NUMBER NOT NULL, 
+	ADDR_Y NUMBER NOT NULL, 
+	GRADE VARCHAR2( 20 ) CHECK( GRADE IN ( 'ADMIN', 'USER' ) ) NOT NULL, 
+	FAVOGENRE VARCHAR2( 2000 ) NOT NULL, 
+	FAVOHT VARCHAR2( 2000 ) NOT NULL,
+	SUBDATE DATE DEFAULT SYSDATE
+	
+	[ DTO ]
+	private int userno;
+	private String userid;
+	private String userpw;
+	private String name;
+	private String nickname;
+	private String email;
+	private String phone;
+	private double height;
+	private double weight;
+	private int postCode;
+	private String addr;
+	private String addr_Detail;
+	private double addr_X;
+	private double addr_Y;
+	private String grade;
+	private String favogenre;
+	private String favoht;
+	private Date subdate;
+ -->
+	<select id="memberList" resultType="Member">
+		SELECT *
+		FROM MEMBER
+		ORDER BY USERNO DESC
+	</select>
+	
+	<select id="memberOne" parameterType="int" resultType="Member">
+		SELECT *
+		FROM MEMBER
+		WHERE USERNO = #{userno}
+	</select>
+	
+	<!-- ※ SQL Mapping할 때, jdbcType=VARCHAR 붙여주면 빈 값이 들어올 경우, null로 세팅해준다. -->
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES( MEMBERSEQ.NEXTVAL, #{userid}, #{userpw}, #{name}, #{nickname}, #{email}, #{phone}, #{height}, #{weight}, #{postCode}, 
+				#{addr}, #{addr_Detail}, #{addr_X}, #{addr_Y}, <!-- 37.500637, 127.036371,  -->#{grade}, #{favogenre}, #{favoht}, SYSDATE )
+	</insert>
+	
+	<!-- SNS LOGIN -->
+	<insert id="insertSNS" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES( MEMBERSEQ.NEXTVAL, #{userid}, '', '', '', '', '', 0, 0, 0, '', '', 0, 0, 'USER', '', '', SYSDATE )
+	</insert>
+	
+	<!-- <update id="updateMember" parameterType="Member">
+		UPDATE MEMBER
+		SET USERPW = #{userpw}, EMAIL = #{email}, PHONE = #{phone}, HEIGHT = #{height}, WEIGHT = #{weight}, POSTCODE = #{postCode}, 
+		ADDR = #{addr}, ADDR_DETAIL = #{addr_Detail}, #{addr_X}, #{addr_Y}, FAVOGENRE = #{favogenre}, FAVOHT = #{favoht}
+		WHERE USERNO = #{userno}
+	</update> -->
+	
+	<update id="updateUser" parameterType="Member">
+		UPDATE MEMBER
+		SET NAME = #{name}, NICKNAME = #{nickname}, USERPW = #{userpw}, EMAIL = #{email}, PHONE = #{phone}, HEIGHT = #{height}, WEIGHT = #{weight}, 
+		POSTCODE = #{postCode}, ADDR = #{addr}, ADDR_DETAIL = #{addr_Detail}, ADDR_X =#{addr_X}, ADDR_Y=#{addr_Y}, FAVOGENRE = #{favogenre}, FAVOHT = #{favoht} 
+		WHERE USERNO = #{userno}
+	</update>
+	
+	<!-- login -->
+	<select id="login" parameterType="String" resultType="Member">
+		SELECT *
+		FROM MEMBER
+		WHERE USERID = #{userid}
+	</select>
+	
+	<select id="idChk" parameterType="String" resultType="Member">
+		SELECT *
+		FROM MEMBER
+		WHERE USERID = #{userid}
+	</select>
+		
+	<select id="idFind" resultType="Member">
+		SELECT *
+		FROM MEMBER
+		WHERE NAME = #{name} AND PHONE = #{phone}
+	</select>
+	
+	<select id="idFindSNS" parameterType="String" resultType="Member">
+		SELECT *
+		FROM MEMBER
+		WHERE USERID = #{userid}
+	</select>
+	
+	<select id="pwFind" resultType="Member">
+		SELECT *
+		FROM MEMBER
+		WHERE NAME = #{name} AND PHONE = #{phone} AND USERID = #{userid}
+	</select>
+	
+	<delete id="deleteMember" parameterType="int">
+		DELETE FROM MEMBER
+		WHERE USERNO = #{userno}
+	</delete>
+</mapper>

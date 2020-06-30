@@ -1,0 +1,419 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body{
+    height: 100%;
+}
+
+.clearFix::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.container {
+    width: 1920px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container2 {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media ( max-width: 500px ) {
+  .bo{
+  	display: none;
+  }
+}
+
+.scroll{
+	width:10px;
+	height:40px;
+	display:inline-block;
+}
+
+/*****************header***********************/
+
+header{
+    width: 100%;
+    height: 150px;
+    border-bottom: 1px solid #000;
+}
+
+#logo{
+    width: 150px;
+    height: 80px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#logo a{
+    display: inline-block;
+}
+
+#logo img{
+    margin-top: 20px;
+}
+
+.nav{
+    text-align: center;
+    position: relative;
+    margin-top: 26px;
+    height: 44px;
+}
+
+#nav_menu{
+    display: inline-block;
+    margin: 0 auto;
+}
+
+#nav_menu li{
+    display: inline-block;
+    margin: 0px 30px;
+    font-size: 18px;
+}
+
+#nav_menu li a{
+    color: #000;
+}
+
+#nav_menu li a:hover{
+    color: #9CE9FF;
+}
+
+#login{
+    display: inline-block;
+    text-align: right;
+    position: absolute;
+    right: 30px;
+}
+
+#login li{
+    display: inline-block;
+    margin: 0px 10px;
+}
+
+#login li a{
+    color: #000;
+}
+
+.slide{
+    text-align: center;
+    width: 1920px;
+    height: 550px;
+    overflow: hidden;
+    margin-bottom: 60px;
+}
+
+.slide img{
+    width: 100%;
+}
+
+#select{
+    width: 1200px;
+    height: 200px;
+    margin: 0 auto;
+    border: 5px solid #dde2e6;
+}
+
+#select table{
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+#select table tr{
+    height: 50px;
+}
+
+#select table tr th{
+    width: 80px;
+}
+
+#search{
+    width: 400px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+.genre td ul li{
+    display: inline-block;
+}
+
+.selectbtn{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.round{
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+}
+
+.inbtn{
+    margin-right: 10px;
+    background-color: #9CE9FF;
+    color: #fff;
+}
+
+.btn{
+    background-color: #fff;
+    border: 1px solid #dde2e6;
+}
+
+/*****************section***********************/
+#section{
+    height: 659px;
+}
+
+#menu{
+    margin: 0 auto;
+    margin-top: 80px;
+    width: 1200px;
+}
+
+#menu ul{
+    margin: 0 auto;
+    width: 1200px;
+    height: 580px;
+}
+
+#menu ul li{
+    width: 285px;
+    height: 580px;
+    text-align: center;
+    float: left;
+}
+
+#menu ul li a:first-child{
+    display: inline-block;
+}
+
+#menu ul li:nth-child(2){
+    margin: 0px 10px 0px 20px;
+}
+
+#menu ul li:nth-child(3){
+    margin: 0px 20px 0px 10px;
+}
+
+#menu ul li img{
+    width: 285px;
+    height: 400px;
+    margin-bottom: 20px;
+}
+
+#menu ul li span{
+    font-size: 24px;
+}
+
+.line{
+    width: 40px;
+    height: 2px;
+    background-color: #dde2e6;
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+.more{
+    width: 140px;
+    height: 40px;
+    border-radius: 30px;
+    border: solid 1px #9CE9FF;
+    color: #9CE9FF;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.more:hover{
+    background-color: #9CE9FF;
+    color: #fff;
+    border: none;
+}
+
+.line + a{
+    color: #000;
+    display: inline-block;
+    line-height: 40px;
+}
+
+/*******************heart**********************/
+.favorite{
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.heartbox{
+    width: 120px;
+    height: 50px;
+    display: inline-block;
+    border: 1px solid red;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.heart { 
+    background-color: red;
+    height: 20px;
+    width: 20px;
+    top: 48%;
+    left: 20%;
+    position: absolute;
+    transform: rotate(45deg) translate(-50%, 0%);
+} 
+
+.heart:before{
+    position: absolute;
+    bottom: 0px;
+    left: -10px;
+    width: 20px;
+    height: 20px;
+    content: '';
+    border-radius: 50%;
+    background-color: red;
+} 
+
+.heart:before,
+.heart:after{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  content: '';
+  border-radius: 50%;
+  background-color: red;
+}
+.heart:before{
+  bottom: 0px;
+  left: -10px;
+}
+.heart:after{
+  top: -10px;
+  right: 0px;
+}
+
+.heartbox p{
+    display: inline-block;
+    line-height: 45px;
+    padding-left: 35px;
+}
+
+/*******************star***************************/
+.starbox{
+    width: 150px;
+    height: 50px;
+    display: inline-block;
+    border: 1px solid #FC0;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.star {
+    position: absolute;
+
+    top: 48%;
+    left: 2%;
+    transform: translate(0%, -120%);
+
+    display: inline-block;
+    width: 0;
+    height: 0;
+
+    margin-left: .9em;
+    margin-right: .9em;
+    margin-bottom: 1.2em;
+
+    border-right:  .3em solid transparent;
+    border-bottom: .7em  solid #FC0;
+    border-left:   .3em solid transparent;
+
+    /* Controlls the size of the stars. */
+    font-size: 24px;
+}
+.star:before, .star:after {
+    content: '';
+
+    display: block;
+    width: 0;
+    height: 0;
+
+    position: absolute;
+    top: .6em;
+    left: -1em;
+
+    border-right:  1em solid transparent;
+    border-bottom: .7em  solid #FC0;
+    border-left:   1em solid transparent;
+
+    transform: rotate(-35deg);
+}
+
+.star:after {  
+    transform: rotate(35deg);
+}
+
+.starbox p{
+    display: inline-block;
+    line-height: 45px;
+    padding-left: 45px;
+}
+
+/*******************swiper**********************/
+.swiper-container {
+    width: 100%;
+    height: 100%;
+  }
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+/*****************footer***********************/
+
+footer{
+    width: 100%;
+    height: 80px;
+    background-color: #9ba4aa;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    bottom: 0px;
+}
+
+#footer{
+    line-height: 80px;
+}

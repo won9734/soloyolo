@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="soloyolo.Community">
+<!-- 
+	[ DB ]
+	COMNO NUMBER PRIMARY KEY, 
+	DIVNO NUMBER CHECK( DIVNO IN ( 1, 2, 3, 4 ) ) NOT NULL, 
+	TITLE VARCHAR2( 2000 ) NOT NULL, 
+	NICKNAME VARCHAR2( 2000 ) NOT NULL, 
+	CONTENT VARCHAR2( 4000 ) NOT NULL, 
+	REGDATE DATE DEFAULT SYSDATE, 
+	VIEWNUM NUMBER DEFAULT 0, 
+	RECOMNUM NUMBER DEFAULT 0, 
+	FILEURL VARCHAR2( 2000 )
+	
+	[ DTO ]
+	private int comno;
+	private int divno;
+	private String title;
+	private String nickName;
+	private String content;
+	private Date regdate;
+	private int viewNum;
+	private int recomNum;
+	private String fileUrl;
+ -->
+ 	<!-- Community게시판 List - sub_Community01.jsp -->
+	<select id="communityList" resultType="Commu">
+		SELECT *
+		FROM COMMUNITY
+		ORDER BY COMNO DESC
+	</select>
+	
+ 	<!-- Community게시판 Detail - sub_Community02.jsp -->
+	<select id="selectOne" parameterType="int" resultType="Commu">
+		SELECT *
+		FROM COMMUNITY
+		WHERE COMNO = #{comno}
+	</select>
+	
+ 	<!-- Community게시판 List에서 게시글 클릭 시 조회수 업데이트 -->
+	<update id="viewUpdate" parameterType="int">
+		UPDATE COMMUNITY
+		SET VIEWNUM = NVL( VIEWNUM, 0 ) + 1
+		WHERE COMNO = #{comno}
+	</update>
+	
+ 	<!-- Community게시판 List에서 게시글 등록 -->
+	<insert id="insertBoard" parameterType="Commu">
+		INSERT INTO COMMUNITY
+		VALUES( COMSEQ.NEXTVAL, #{divno}, #{title}, #{nickName}, #{content}, SYSDATE, 0, 0, #{fileUrl} )
+	</insert>
+	
+ 	<!-- Community게시판 Detail에서 게시글 수정 -->
+	<update id="updateBoard" parameterType="Commu">
+		UPDATE COMMUNITY
+		SET CONTENT = #{content}, FILEURL = #{fileUrl}
+		WHERE COMNO = #{comno}
+	</update>
+	
+	<insert id="insertBoard2" parameterType="Commu">
+		INSERT INTO COMMUNITY
+		VALUES( COMSEQ.NEXTVAL, #{divno}, #{title}, #{nickName}, #{content}, SYSDATE, 0, 0, '' )
+	</insert>
+	
+ 	<!-- Community게시판 Detail에서 좋아요 버튼 클릭 시 추천수 업데이트 -->
+	<update id="recomUpdate" parameterType="int">
+		UPDATE COMMUNITY
+		SET RECOMNUM = NVL( RECOMNUM, 0 ) + 1
+		WHERE COMNO = #{comno}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM COMMUNITY
+		WHERE COMNO = #{comno}
+	</delete>
+</mapper>

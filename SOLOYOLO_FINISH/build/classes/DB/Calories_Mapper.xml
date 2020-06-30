@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="soloyolo.Calories">
+	<select id="selectAll" parameterType="int" resultType="Calories">
+		SELECT *
+		FROM CALORIE
+		WHERE USERNO = #{userno}
+		<!-- ORDER BY CALNO DESC -->
+	</select>
+
+   <select id="selectone" parameterType="Calories" resultType="Calories">
+      SELECT *
+      FROM CALORIE
+      WHERE USERNO = #{userno} AND REGDATE = #{regdate}
+   </select>
+   
+   <insert id="upInsert" parameterType="Calories">
+      INSERT
+      INTO CALORIE
+      VALUES(CALORIESEQ.NEXTVAL,#{userno},#{sumcal},0,#{regdate})
+   </insert>
+   
+   <insert id="downInsert" parameterType="Calories">
+      INSERT
+      INTO CALORIE
+      VALUES(CALORIESEQ.NEXTVAL,#{userno},0,#{subcal},TO_CHAR( SYSDATE, 'YYYY-MM-DD' ))
+   </insert>
+   
+
+   <update id="sumcal" parameterType="Calories">
+      UPDATE CALORIE
+      SET SUMCAL = #{sumcal}
+      WHERE USERNO = #{userno} AND REGDATE = TO_CHAR( SYSDATE, 'YYYY-MM-DD' )
+   </update>
+   
+   <update id="subcal" parameterType="Calories" >
+      UPDATE CALORIE
+      SET SUBCAL = #{subcal}
+      WHERE USERNO = #{userno} AND REGDATE = TO_CHAR( SYSDATE, 'YYYY-MM-DD' )
+   </update> 
+</mapper>

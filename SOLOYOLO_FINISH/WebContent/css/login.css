@@ -1,0 +1,174 @@
+.loginbox{
+    width: 500px;
+    margin: 0 auto;
+    border: 1px solid #9ba4aa;
+    border-radius: 5px;
+    margin-top: 150px;
+    padding-bottom: 60px;
+}
+
+#logo{
+    margin-top: 60px;
+    height: auto;
+}
+
+#logo img{
+    margin-top: 0px;
+}
+
+form{
+    margin-top: 40px;
+    text-align: center;
+}
+
+.idpw{
+    text-align: center;
+}
+
+.info p{
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.input_style{
+    width: 400px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #dde2e6;
+    color: #9CE9FF;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.input_style2{
+    width: 170px;
+}
+
+.loginbtn{
+    width: 400px;
+    height: 50px;
+    background-color: #9CE9FF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.subbtn{
+    width: 130px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: #eef1f3;
+    color: #191919;
+    cursor: pointer;
+}
+
+.sns{
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.sns a{
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+/*****************join**************************/
+.joinbox{
+    width: 500px;
+    margin: 0 auto;
+    border: 1px solid #9ba4aa;
+    border-radius: 5px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    padding-bottom: 60px;
+}
+
+.input_email{
+    width: 125px;
+}
+
+.input_phone{
+    width: 125px;
+}
+
+.input_addr{
+	width: 260px;
+}
+
+.input_addr2{
+	width: 150px;
+	background-color: #9CE9FF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.input_addr3{
+	width: 415px;
+}
+
+.favogenre{
+    width: 400px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.favogenre p{
+    margin-bottom: 10px;
+}
+
+.favogenre li{
+    display: inline-block;
+}
+
+.favoht{
+    width: 400px;
+    margin: 0 auto;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.favoht p{
+    margin-bottom: 10px;
+}
+
+.favoht li{
+    display: inline-block;
+}
+
+.joinbtnbox{
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.joinbtn{
+    width: 49%;
+    height: 50px;
+    background-color: #9CE9FF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.joincancelbtn{
+    width: 49%;
+    height: 50px;
+    background-color: #eef1f3;
+    color: #191919;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="soloyolo.History">
+<!-- 
+	[ DB ]
+	HISNO NUMBER PRIMARY KEY, 
+	DIVNO NUMBER, 
+	USERNO NUMBER, 
+	TITLE VARCHAR( 1000 ), 
+	IMG VARCHAR( 1000 ), 
+	HISADDR VARCHAR( 2000 ), 
+	REGDATE VARCHAR2( 20 )
+	
+	[ DTO ]
+	private int hisno;
+	private int divno;
+	private int userno;
+	private String title;
+	private String img;
+	private String hisAddr;
+ -->
+ 
+ 	<select id="hisSearch" parameterType="int" resultType="His">
+		SELECT *
+		FROM HISTORY
+		WHERE USERNO = #{userno}
+		ORDER BY HISNO DESC
+	</select>
+	
+	<!--  -->
+	<insert id="insertHis" parameterType="His">
+		INSERT INTO HISTORY
+		VALUES( HISTORYSEQ.NEXTVAL, #{divno}, #{userno}, #{title}, #{img}, #{hisAddr}, TO_CHAR( SYSDATE, 'YYYY-MM-DD' ) )
+	</insert>
+	
+	<!-- 같은 게시물을 클릭시 selectOne -->
+	<select id="hisDuplicate" resultType="His">
+		SELECT *
+		FROM HISTORY
+		WHERE USERNO = #{userno} AND HISADDR = #{hisAddr}
+		<!-- ORDER BY HISNO DESC -->
+	</select>
+	
+	<!-- 위에서 selectOne해온 객체를 가지고 중복된 게시물이므로, REGDATE를 SYSDATE로 update -->
+	<update id="hisUpdate" parameterType="His">
+		UPDATE HISTORY
+		SET REGDATE = TO_CHAR( SYSDATE, 'YYYY-MM-DD' )
+		WHERE USERNO = #{userno} AND HISADDR = #{hisAddr}
+	</update>
+	
+	<!-- <delete id="hisDelete" parameterType="His">
+		DELETE FROM HISTORY
+		WHERE USERNO = #{userno} AND HISADDR = #{hisAddr}
+	</delete> -->
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="soloyolo.HT">
+<!-- 
+	[ DB ]
+	HTNO NUMBER PRIMARY KEY, 
+	NAME VARCHAR2( 1000 ) NOT NULL, 
+	INTRO VARCHAR2( 4000 ) NOT NULL, 
+	HTTIME VARCHAR2( 1000 ) NOT NULL, 
+	LEVEL VARCHAR2( 40 ) CHECK( HTLEVEL IN ( '고급', '중급', '초급' ) ) NOT NULL, 
+	PART VARCHAR2( 1000 ) CHECK( HTPART IN ( '전신', '상체','하체','스트레칭','복부' ) ) NOT NULL, 
+	SUBCAL NUMBER NOT NULL, 
+	AVI VARCHAR2( 1000 ) NOT NULL,
+	PIC VARCHAR2( 1000 ) NOT NULL
+	
+	[ DTO ]
+	private int htno;
+	private String name;
+	private String intro;
+	private String htTime;
+	private String level;
+	private String part;
+	private int subCal;
+	private String avi;
+	private String pic;
+ -->
+	
+	<!-- Home Training List -->
+	<select id="HTList" resultType="HT">
+		SELECT *
+		FROM TRAINING
+		<!-- ORDER BY HTNO DESC -->
+	</select>
+	
+	
+	<!-- ==================== [ SEARCH ] ==================== -->
+	
+	
+	<!-- Home Training Genre Search -->
+	<select id="htSearch" parameterType="List" resultType="HT">
+		SELECT *
+  		FROM TRAINING
+  		WHERE PART LIKE (
+	  		<foreach collection="array" item="item" index="index" separator=",">
+	            '%${item}%'
+	        </foreach>
+        )
+	</select>
+	
+	<!-- Home Training Word Search -->
+	<select id="htWordSearch" parameterType="String" resultType="HT">
+		SELECT *
+		FROM TRAINING
+		WHERE NAME LIKE '%'||#{search}||'%'
+	</select>
+	
+	<!-- Home Training SelectOne -->
+	<select id="htSelOne" parameterType="int" resultType="HT" >
+  		SELECT *
+  		FROM TRAINING
+  		WHERE HTNO = #{htno}
+  	</select>
+</mapper>

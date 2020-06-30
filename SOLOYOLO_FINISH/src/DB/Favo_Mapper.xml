@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="soloyolo.Favorites">
+<!-- 
+	[ DB ]
+	FAVORITESNO NUMBER, 
+	DIVNO NUMBER, 
+	USERNO NUMBER, 
+	TITLE VARCHAR( 1000 ), 
+	IMG VARCHAR( 1000 ), 
+	FAVOADDR VARCHAR( 2000 ), 
+	REGDATE DATE DEFAULT SYSDATE
+	
+	[ DTO ]
+	private int favono;
+	private int divno;
+	private int userno;
+	private String title;
+	private String img;
+	private String favoAddr;
+	private Date regdate;
+ -->
+ 
+ 	<select id="FavoSearch" parameterType="int" resultType="Favo">
+		SELECT *
+		FROM FAVORITES
+		WHERE USERNO = #{userno}
+		ORDER BY FAVORITESNO DESC
+	</select>
+	
+	<!-- <select id="FavoDuplicate" parameterType="String" resultType="Favo">
+		SELECT *
+		FROM FAVORITES
+		WHERE FAVOADDR = #{favoAddr}
+		ORDER BY FAVORITESNO DESC
+	</select> -->
+	
+	<select id="FavoDuplicate" parameterType="Favo" resultType="Favo">
+		SELECT *
+		FROM FAVORITES
+		WHERE USERNO = #{userno} AND FAVOADDR = #{favoAddr}
+		ORDER BY FAVORITESNO DESC
+	</select>
+	
+	<insert id="insertFavo" parameterType="Favo">
+		INSERT INTO FAVORITES
+		VALUES( FAVORITESSEQ.NEXTVAL, #{divno}, #{userno}, #{title}, #{img}, #{favoAddr}, SYSDATE )
+	</insert>
+	
+	<delete id="deleteFavo" parameterType="Favo">
+		DELETE FROM FAVORITES
+		WHERE USERNO = #{userno} AND FAVOADDR = #{favoAddr}
+	</delete>
+</mapper>

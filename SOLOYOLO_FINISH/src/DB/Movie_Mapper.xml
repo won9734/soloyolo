@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="soloyolo.Movie">
+<!-- 
+	========== [ Movie ] ==========
+	[ DB ]
+	MNO NUMBER PRIMARY KEY, 
+	MNAME VARCHAR2( 1000 ) NOT NULL, 
+	GENRE VARCHAR2( 1000 ) NOT NULL, 
+	NATION VARCHAR2( 1000 ) NOT NULL, 
+	RELEASE VARCHAR2( 1000 ) NOT NULL, 
+	MGRADE VARCHAR2( 1000 ) NOT NULL, 
+	MSCORE NUMBER NOT NULL, 
+	MINTRO VARCHAR2( 4000 ) NOT NULL, 
+	MTIME VARCHAR2( 1000 ) NOT NULL, 
+	MURL VARCHAR2( 1000 ) NOT NULL, 
+	DIRECTOR VARCHAR2( 1000 ) NOT NULL, 
+	ACTOR VARCHAR2( 1000 ), 
+	MID NUMBER NOT NULL
+	
+	[ DTO ]
+	private int mno;
+	private String mname;
+	private String genre;
+	private String nation;
+	private String release;
+	private String mgrade;
+	private double mscore;
+	private String mintro;
+	private String mtime;
+	private String murl;
+	private String director;
+	private String actor;
+	private int mid;
+	
+	========== [ Crawling ] ==========
+	[ DTO ]
+	private String img;
+	private String title;
+	private String movieid;
+ -->
+	<select id="movieAll" resultType="Movie">
+		SELECT *
+		FROM MOVIE
+		ORDER BY MNO DESC
+	</select>
+
+	<select id="mnoSelect" parameterType="int" resultType="Movie">
+		SELECT *
+		FROM MOVIE
+		WHERE MNO = #{mno}
+	</select>
+	
+	<select id="midSelect" parameterType="int" resultType="Movie">
+		SELECT *
+		FROM MOVIE
+		WHERE MID = #{mid}
+	</select>
+	
+	<insert id="insertMovie" parameterType="Movie">
+		INSERT INTO MOVIE
+		VALUES( MOVIESEQ.NEXTVAL, #{mname}, #{genre}, #{nation}, #{release}, #{mgrade}, #{mscore}, 
+				#{mintro}, #{mtime}, #{murl}, #{director,jdbcType=VARCHAR}, #{actor,jdbcType=VARCHAR}, #{mid} )
+	</insert>
+	
+	
+	<!-- ==================== [ SEARCH ] ==================== -->
+	
+	
+	<select id="movieSearch" parameterType="ArrayList" resultType="Craw">
+   		SELECT MURL, MNAME, MID
+  		FROM MOVIE
+  		WHERE GENRE LIKE 
+		<foreach collection="array" item="item" index="index" separator=",">
+			'%${item}%'
+		</foreach>
+	</select>
+	
+	<select id="movieWordSearch" parameterType="ArrayList" resultType="Craw">
+   		SELECT MURL, MNAME, MID
+  		FROM MOVIE
+  		WHERE MNAME LIKE '%'||#{search}||'%'
+	</select>
+</mapper>

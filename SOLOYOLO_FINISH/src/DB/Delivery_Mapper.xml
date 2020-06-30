@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="soloyolo.Delivery">
+<!-- 
+	[ SHOP ]
+	[ DB ]
+	SNO NUMBER PRIMARY KEY, 
+	NAME VARCHAR2( 1000 ) NOT NULL, 
+	ADDR VARCHAR2( 2000 ) NOT NULL, 
+	SHOP_X NUMBER NOT NULL, 
+	SHOP_Y NUMBER NOT NULL, 
+	INTRO VARCHAR2( 2000 ) NOT NULL, 
+	FTYPE VARCHAR2( 100 ) NOT NULL, 
+	SCORE NUMBER DEFAULT 0, 
+	PHONE VARCHAR2( 1000 ), 
+	STIME VARCHAR2( 1000 ) NOT NULL, 
+	SHOPIMG VARCHAR2( 1000 ) NOT NULL
+	
+	[ DTO ]
+	private int sno;
+	private String name;
+	private String addr;
+	private Double shop_X;
+	private Double shop_Y;
+	private String intro;
+	private String intro;
+	private Double score;
+	private String phone;
+	private String stime;
+	private String shopImg;
+	
+	
+
+	[ MENU ]
+	[ DB ]
+	SNO NUMBER NOT NULL, 
+	MNO NUMBER, 
+	NAME VARCHAR2( 1000 ) NOT NULL, 
+	PRICE NUMBER DEFAULT 0 NOT NULL, 
+	CAL NUMBER DEFAULT 0 NOT NULL, 
+	MENUIMGS VARCHAR2( 3000 ) NOT NULL	
+	
+	[ DTO ]
+	private int sno;
+	private int mno;
+	private String name;
+	private int price;
+	private int cal;
+	private String menuImgs;
+ -->
+ 	
+	<select id="shopList" resultType="Shop">
+		SELECT *
+		FROM SHOP
+		ORDER BY SNO
+	</select>
+	
+  	<select id="shopOne" parameterType="int" resultType="Shop">
+		SELECT *
+		FROM SHOP
+		WHERE SNO = #{sno}
+	</select>
+	
+	 <select id="menuList" parameterType="int" resultType="Menu">
+		SELECT *
+		FROM MENU
+		WHERE SNO = #{sno}
+	</select>
+</mapper>

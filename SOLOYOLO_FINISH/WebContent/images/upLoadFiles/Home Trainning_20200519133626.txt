@@ -1,0 +1,31 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		    <script type="text/javascript">
+				google.charts.load('current', {'packages':['corechart']});
+				google.charts.setOnLoadCallback(drawChart);
+				
+				function drawChart() {
+				  var data = google.visualization.arrayToDataTable([
+				    ['작성일', '소비칼로리', '섭취칼로리'],
+				    ['0420',  1000,      400],
+				    ['0421',  1170,      460],
+				    ['0422',  660,       1000],
+				    ['0424',  1030,      1740],
+				    ['0425',  1030,      640],
+				    ['0426',  1030,      1940],
+				    ['0427',  1030,      340],
+				  ]);
+				
+				  var options = {
+				    title: '자신의 칼로리 그래프',
+				    titleTextStyle:{color: '#000000'},
+				    curveType: 'none',
+				    legend: { position: 'bottom' },
+				    backgroundColor: '#9CE9FF' 
+				  	};
+				
+				  var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+				
+				  chart.draw(data, options);
+				  }
+				</script>
+				<div id="curve_chart" style="width: 1000px; height: 500px;" ></div>

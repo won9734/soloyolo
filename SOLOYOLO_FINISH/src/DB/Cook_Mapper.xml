@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="soloyolo.Cook">
+<!-- 
+	[ DB ]
+	CNO NUMBER PRIMARY KEY, 
+	NAME VARCHAR2( 1000 ) NOT NULL, 
+	INTRO VARCHAR2( 4000 ) NOT NULL, 
+	RECIPE VARCHAR2( 4000 ) NOT NULL, 
+	CTYPE VARCHAR2( 2000 ) CHECK( CTYPE IN ( '일상', '초스피드', '술안주', '다이어트', '간식', '야식' ) ), 
+	MATERIAL VARCHAR2( 1000 ) NOT NULL, 
+	SEASONING VARCHAR2( 1000 ) NOT NULL, 
+	CCAL NUMBER NOT NULL, 
+	CURL VARCHAR2( 1000 ) NOT NULL
+	
+	[ DTO ]
+	private int cno;
+	private String name;
+	private String intro;
+	private String recipe;
+	private String ctype;
+	private String meterial;
+	private String sesoning;
+	private double cCal;
+	private String cUrl;
+ -->
+	
+	<!-- Cook List -->
+	<select id="cookList" resultType="Cook">
+		SELECT *
+		FROM COOK
+		ORDER BY CNO DESC
+	</select>
+	
+	
+	<!-- ==================== [ SEARCH ] ==================== -->	
+	
+	<!-- Cook Type Search -->
+	<select id="cookSearch" parameterType="List" resultType="Cook">
+		SELECT *
+  		FROM COOK
+  		WHERE CTYPE LIKE (
+	  		<foreach collection="array" item="item" index="index" separator=",">
+	            '%${item}%'
+	        </foreach>
+        )
+	</select>
+	
+	<!-- Cook Word Search -->
+	<select id="cookWordSearch" parameterType="String" resultType="Cook">
+		SELECT *
+		FROM COOK
+		WHERE NAME LIKE '%'||#{search}||'%'
+	</select>
+	
+	<!-- Cook SelectOne -->
+	<select id="cookSelOne" parameterType="int" resultType="Cook" >
+  		SELECT *
+  		FROM COOK
+  		WHERE CNO = #{cno}
+  	</select>
+</mapper>

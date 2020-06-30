@@ -1,0 +1,422 @@
+-- ======== [ SOLOYOLO DB_CREATE TB & SEQ ] ========= --
+
+
+-- =================== MEMBER TB ==================== --
+DROP TABLE MEMBER;
+DROP SEQUENCE MEMBERSEQ;
+
+-- MEMBER TB
+CREATE TABLE MEMBER(
+	USERNO NUMBER PRIMARY KEY, 
+	USERID VARCHAR2( 1000 ) UNIQUE NOT NULL, 
+	USERPW VARCHAR2( 1000 ), 
+	NAME VARCHAR2( 1000 ), 
+	NICKNAME VARCHAR2( 2000 ), 
+	EMAIL VARCHAR2( 2000 ), 
+	PHONE VARCHAR2( 2000 ), 
+	HEIGHT NUMBER, 
+	WEIGHT NUMBER, 
+	POSTCODE NUMBER, 
+	ADDR VARCHAR2( 2000 ), 
+	ADDR_DETAIL VARCHAR2( 2000 ), 
+	ADDR_X NUMBER, 
+	ADDR_Y NUMBER, 
+	GRADE VARCHAR2( 20 ) CHECK( GRADE IN ( 'ADMIN', 'USER' ) ), 
+	FAVOGENRE VARCHAR2( 2000 ), 
+	FAVOHT VARCHAR2( 2000 ),
+	SUBDATE DATE DEFAULT SYSDATE
+);
+
+-- MEMBER TB SEQ
+CREATE SEQUENCE MEMBERSEQ
+NOCACHE;
+
+SELECT * FROM MEMBER;
+-- ================================================== --
+
+
+-- =================== DIVBOARD TB ================== --
+-- DIVNO : 1( CULTURE ), 2( HOME TRAINNING ), 3( COOK ), 4( DELIVERY )
+DROP TABLE DIVTB;
+
+CREATE TABLE DIVTB(
+	DIVNO NUMBER CHECK( DIVNO IN ( 1, 2, 3, 4 ) ) NOT NULL, 
+	BNAME VARCHAR2( 20 )
+);
+
+SELECT * FROM DIVTB;
+-- ================================================== --
+
+
+-- =================== [ MYPAGE ] =================== --
+-- =================== CALORIE TB =================== --
+DROP TABLE CALORIE;
+DROP SEQUENCE CALORIESEQ;
+
+-- 유저 칼로리 TB
+CREATE TABLE CALORIE(
+	-- 칼로리 번호( CALORIESEQ )
+	CALNO NUMBER PRIMARY KEY, 
+	-- 칼로리 등록한 USERNO
+	USERNO NUMBER NOT NULL, 
+	-- 섭취 칼로리
+	SUMCAL NUMBER, 
+	-- 소모 칼로리
+	SUBCAL NUMBER, 
+	-- 등록일
+--	REGDATE DATE DEFAULT SYSDATE NOT NULL
+	REGDATE VARCHAR2( 100 )
+);
+-- 유저 칼로리 TB SEQ
+CREATE SEQUENCE CALORIESEQ
+NOCACHE;
+
+--INSERT INTO CALORIE
+--VALUES( CALORIESEQ.NEXTVAL, 2, 500, 1000, '2020-05-01' );
+--INSERT INTO CALORIE
+--VALUES( CALORIESEQ.NEXTVAL, 2, 1500, 2000, '2020-05-02' );
+--INSERT INTO CALORIE
+--VALUES( CALORIESEQ.NEXTVAL, 2, 1800, 2200, '2020-05-03' );
+--INSERT INTO CALORIE
+--VALUES( CALORIESEQ.NEXTVAL, 2, 2250, 3200, '2020-05-04' );
+--INSERT INTO CALORIE
+--VALUES( CALORIESEQ.NEXTVAL, 2, 4500, 1500, '2020-05-05' );
+
+SELECT * FROM CALORIE;
+-- ================================================== --
+-- ===================== SNS TB ===================== --
+DROP TABLE SNS;
+DROP SEQUENCE SNSSEQ;
+
+-- SNS TB
+CREATE TABLE SNS(
+	-- 게시글 번호( SNSSEQ )
+	SNSNO NUMBER PRIMARY KEY, 
+	-- 게시글 작성자
+	NICKNAME VARCHAR2( 2000 ) NOT NULL,
+	-- 게시글 내용
+	CONTENT VARCHAR2( 4000 ) NOT NULL,
+	-- 게시글 작성일
+	REGDATE DATE DEFAULT SYSDATE,
+	-- 게시글 첨부파일 위치
+	FILEURL VARCHAR2( 2000 )
+);
+
+-- SNS SNSNO COLUMN SEQ
+CREATE SEQUENCE SNSSEQ
+NOCACHE;
+
+SELECT * FROM SNS;
+-- ================================================== --
+-- ================== FAVORITES TB ================== --
+DROP TABLE FAVORITES;
+DROP SEQUENCE FAVORITESSEQ;
+
+-- FAVORITES TB
+CREATE TABLE FAVORITES(
+	FAVORITESNO NUMBER, 
+	DIVNO NUMBER, 
+	USERNO NUMBER, 
+	TITLE VARCHAR( 1000 ), 
+	IMG VARCHAR( 1000 ), 
+	FAVOADDR VARCHAR( 2000 ), 
+	REGDATE DATE DEFAULT SYSDATE
+);
+
+-- FAVORITES TB SEQ
+CREATE SEQUENCE FAVORITESSEQ
+NOCACHE;
+
+SELECT * FROM FAVORITES;
+-- ================================================== --
+-- ==================== HISTORY TB ================== --
+DROP TABLE HISTORY;
+DROP SEQUENCE HISTORYSEQ;
+
+-- HISTORY TB
+CREATE TABLE HISTORY(
+	HISNO NUMBER PRIMARY KEY, 
+	DIVNO NUMBER, 
+	USERNO NUMBER, 
+	TITLE VARCHAR( 1000 ), 
+	IMG VARCHAR( 1000 ), 
+	HISADDR VARCHAR( 2000 ), 
+--	REGDATE DATE DEFAULT SYSDATE
+	REGDATE VARCHAR2( 20 )
+);
+
+-- HISTORY TB SEQ
+CREATE SEQUENCE HISTORYSEQ
+NOCACHE;
+
+SELECT * FROM HISTORY;
+-- ================================================== --
+-- ================================================== --
+
+
+-- ==================== MOVIE TB ==================== --
+DROP TABLE MOVIE;
+DROP SEQUENCE MOVIESEQ;
+
+-- MOVIE정보 TB
+CREATE TABLE MOVIE(
+	MNO NUMBER PRIMARY KEY, 
+	MNAME VARCHAR2( 1000 ) NOT NULL, 
+	GENRE VARCHAR2( 1000 ) NOT NULL, 
+	NATION VARCHAR2( 1000 ) NOT NULL, 
+	RELEASE VARCHAR2( 1000 ) NOT NULL, 
+	MGRADE VARCHAR2( 1000 ) NOT NULL, 
+	MSCORE NUMBER NOT NULL, 
+	MINTRO VARCHAR2( 4000 ) NOT NULL, 
+	MTIME VARCHAR2( 1000 ) NOT NULL, 
+	MURL VARCHAR2( 1000 ) NOT NULL, 
+	DIRECTOR VARCHAR2( 1000 ) NOT NULL, 
+	ACTOR VARCHAR2( 1000 ), 
+	MID NUMBER NOT NULL
+);
+-- MOVIE정보 TB SEQ
+CREATE SEQUENCE MOVIESEQ
+NOCACHE;
+
+SELECT * FROM MOVIE;
+-- ================================================== --
+
+
+-- ================== TRAINING TB =================== --
+DROP TABLE TRAINING;
+DROP SEQUENCE TRAININGSEQ;
+
+-- TRAINING TB
+CREATE TABLE TRAINING(
+	-- 게시글 번호( TRAININGSEQ )
+	HTNO NUMBER PRIMARY KEY, 
+	-- HT 이름
+	NAME VARCHAR2( 1000 ) NOT NULL, 
+	-- HT 소개
+	INTRO VARCHAR2( 4000 ) NOT NULL, 
+	-- HT 소요 시간
+	HTTIME VARCHAR2( 1000 ) NOT NULL, 
+	-- HT 난이도
+	HTLEVEL VARCHAR2( 40 ) CHECK( HTLEVEL IN ( '고급', '중급', '초급' ) ), 
+	-- HT 종류
+	PART VARCHAR2( 1000 ) CHECK( PART IN ( '전신', '상체', '하체', '스트레칭', '복부' ) ), 
+	-- 소모 칼로리
+	SUBCAL NUMBER NOT NULL, 
+	-- HT 영상 주소
+	AVI VARCHAR2( 1000 ) NOT NULL, 
+	-- HT 사진 태그들
+	PIC VARCHAR2( 1000 ) NOT NULL
+);
+
+-- TRAINING HTNO SEQ
+CREATE SEQUENCE TRAININGSEQ
+NOCACHE;
+
+SELECT * FROM TRAINING;
+-- ================================================== --
+
+
+
+-- ==================== COOK TB ===================== --
+DROP TABLE COOK;
+DROP SEQUENCE COOKSEQ;
+
+-- COOK TB
+CREATE TABLE COOK(
+	-- 게시글 번호( COOKSEQ )
+	CNO NUMBER PRIMARY KEY, 
+	-- COOK 이름
+	NAME VARCHAR2( 1000 ) NOT NULL, 
+	-- COOK 소개
+	INTRO VARCHAR2( 4000 ) NOT NULL, 
+	-- COOK 레시피
+	RECIPE VARCHAR2( 4000 ) NOT NULL, 
+	-- COOK 종류
+	CTYPE VARCHAR2( 100 ) CHECK( CTYPE IN ( '일상', '초스피드', '술안주', '다이어트', '간식', '야식' ) ), 
+	-- 섭취 칼로리
+	CCAL NUMBER NOT NULL, 
+	-- COOK 사진 태그들
+	CURL VARCHAR2( 1000 ) NOT NULL, 
+	-- 재료
+	MATERIAL VARCHAR2( 1000 ) DEFAULT '', 
+	-- 양념
+	SEASONING VARCHAR2( 1000 ) DEFAULT ''
+);
+
+-- COOKSEQ CNO SEQ
+CREATE SEQUENCE COOKSEQ
+NOCACHE;
+
+SELECT * FROM COOK;
+-- ================================================== --
+
+
+-- ================== [ DELIVERY ] ================== --
+-- ===================== SHOP TB ==================== --
+DROP TABLE SHOP;
+DROP SEQUENCE SHOPSEQ;
+
+-- SHOP TB
+CREATE TABLE SHOP(
+	-- 가게 번호( SHOPSEQ )
+	SNO NUMBER PRIMARY KEY, 
+	-- 가게 이름
+	NAME VARCHAR2( 1000 ) NOT NULL, 
+	-- 가게 주소
+	ADDR VARCHAR2( 2000 ) NOT NULL, 
+	-- 가게 주소( X좌표 )
+	SHOP_X NUMBER NOT NULL, 
+	-- 가게 주소( Y좌표 )
+	SHOP_Y NUMBER NOT NULL, 
+	-- 가게 소개
+	INTRO VARCHAR2( 2000 ) NOT NULL, 
+	-- 판매 음식 분류
+	FTYPE VARCHAR2( 100 ) NOT NULL, 
+	-- 가게 평점
+	SCORE NUMBER DEFAULT 0, 
+	-- 가게 전화번호
+	PHONE VARCHAR2( 1000 ), 
+	-- 가게 영업시간
+	STIME VARCHAR2( 1000 ) NOT NULL, 
+	-- 가게 사진( 1장 )
+	SHOPIMG VARCHAR2( 1000 ) NOT NULL
+);
+
+-- SHOP SNO SEQ
+CREATE SEQUENCE SHOPSEQ
+NOCACHE;
+
+SELECT * FROM SHOP;
+-- ================================================== --
+-- ===================== MENU TB ==================== --
+DROP TABLE MENU;
+DROP SEQUENCE MENUSEQ;
+
+-- MENU TB
+CREATE TABLE MENU(
+	-- 가게 번호( SHOPSEQ )
+	SNO NUMBER NOT NULL, 
+	-- 메뉴 번호( MENUSEQ )
+	MNO NUMBER, 
+	-- 메뉴 이름
+	NAME VARCHAR2( 1000 ) NOT NULL, 
+	-- 메뉴 가격
+	PRICE NUMBER DEFAULT 0 NOT NULL, 
+	-- 메뉴 칼로리
+	CAL NUMBER DEFAULT 0 NOT NULL, 
+	-- 메뉴 사진들
+	MENUIMGS VARCHAR2( 3000 ) NOT NULL
+	
+	-- PRIMARY KEY는 SNO와 MNO를 합쳐서 적용
+);
+
+-- MENU MNO SEQ
+CREATE SEQUENCE MENUSEQ
+NOCACHE;
+
+SELECT * FROM MENU;
+-- ================================================== --
+-- ================================================== --
+
+
+-- ============= COMMUNITY( BOARDS ) TB ============= --
+DROP TABLE COMMUNITY;
+DROP SEQUENCE COMSEQ;
+
+-- COMMUNITY TB
+CREATE TABLE COMMUNITY(
+	-- 게시글 번호( COMSEQ )
+	COMNO NUMBER PRIMARY KEY, 
+	-- 게시판 구분 번호( Culture, Home Training, Cook, Delivery )
+	DIVNO NUMBER CHECK( DIVNO IN ( 1, 2, 3, 4 ) ) NOT NULL, 
+	-- 게시글 제목
+	TITLE VARCHAR2( 2000 ) NOT NULL,
+	-- 게시글 작성자
+	NICKNAME VARCHAR2( 2000 ) NOT NULL,
+	-- 게시글 내용
+	CONTENT VARCHAR2( 4000 ) NOT NULL,
+	-- 게시글 작성일
+	REGDATE DATE DEFAULT SYSDATE,
+	-- 게시글 조회수
+	VIEWNUM NUMBER DEFAULT 0,
+	-- 게시글 추천수
+	RECOMNUM NUMBER DEFAULT 0,
+	-- 게시글 첨부파일 위치
+	FILEURL VARCHAR2( 2000 )
+);
+
+-- COMMUNITY COMNO COLUMN SEQ
+CREATE SEQUENCE COMSEQ
+NOCACHE;
+
+SELECT * FROM COMMUNITY;
+-- ================================================== --
+
+
+-- ================== [ COMMENT ] =================== --
+-- ========= CULTURE & DELIVERY COMMENT TB ========== --
+DROP TABLE MDCOMMENT;
+DROP SEQUENCE MDCOMSEQ;
+
+-- MDCOMMENT TB
+CREATE TABLE MDCOMMENT(
+	-- 댓글 번호( MDCOMSEQ )
+	COMNO NUMBER PRIMARY KEY,
+	-- 댓글 작성자 번호
+	USERNO NUMBER NOT NULL, 
+	-- 게시판 구분 번호( Culture, Delivery )
+	DIVNO NUMBER NOT NULL, 
+	-- 해당 게시판의 게시글 구분 번호( MNO, FNO )
+	BOARDNO NUMBER NOT NULL, 
+	-- 댓글 작성자의 닉네임
+	NICKNAME VARCHAR2( 2000 ), 
+	-- 댓글 내용
+	CONTENT VARCHAR2( 4000 ), 
+	-- 댓글 작성일
+	REGDATE DATE DEFAULT SYSDATE
+);
+
+-- MDCOMMENT COMNO SEQ
+CREATE SEQUENCE MDCOMSEQ
+NOCACHE;
+
+SELECT * FROM MDCOMMENT;
+-- ================================================== --
+-- ============= COMMUNITY COMMENT TB =============== --
+DROP TABLE CCOMMENT;
+DROP SEQUENCE CCOMSEQ;
+
+-- CCOMMENT TB
+CREATE TABLE CCOMMENT(
+	-- 댓글 번호( MDCOMSEQ )
+	COMNO NUMBER PRIMARY KEY,
+	-- 댓글 작성자 번호
+	USERNO NUMBER NOT NULL, 
+	-- 게시판 구분 번호( Culture, Home Training, Cook, Delivery )
+	DIVNO NUMBER NOT NULL, 
+	-- 해당 게시판의 게시글 구분 번호( MNO, FNO )
+	BOARDNO NUMBER NOT NULL, 
+	-- 댓글 작성자의 닉네임
+	NICKNAME VARCHAR2( 2000 ), 
+	-- 댓글 내용
+	CONTENT VARCHAR2( 4000 ), 
+	-- 댓글 작성일
+	REGDATE DATE DEFAULT SYSDATE
+);
+
+-- CCOMMENT COMMNO SEQ
+CREATE SEQUENCE CCOMSEQ
+NOCACHE;
+
+SELECT * FROM CCOMMENT;
+-- ================================================== --
+-- ================================================== --
+
+
+
+
+
+
+
+
+

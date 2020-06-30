@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="soloyolo.CComment">
+<!-- 
+	[ DB ]
+	COMNO NUMBER PRIMARY KEY,
+	USERNO NUMBER NOT NULL, 
+	DIVNO NUMBER NOT NULL, 
+	BOARDNO NUMBER NOT NULL, 
+	NICKNAME VARCHAR2( 2000 ), 
+	CONTENT VARCHAR2( 4000 ), 
+	REGDATE DATE DEFAULT SYSDATE
+	
+	[ DTO ]
+	private int comno;
+	private String userno;
+	private int divno;
+	private int boardno;
+	private String nickName;
+	private String content;
+	private Date regdate;
+ -->
+	
+	<select id="ccomList" resultType="CCom">
+		SELECT *
+		FROM CCOMMENT
+		WHERE DIVNO = #{divno} AND BOARDNO = #{boardno}
+		ORDER BY COMNO DESC
+	</select>
+	
+	<insert id="ccomInsert" parameterType="CCom">
+		INSERT INTO CCOMMENT
+		VALUES( CCOMSEQ.NEXTVAL, #{userno}, #{divno}, #{boardno}, #{nickName}, #{content}, SYSDATE )
+	</insert>
+</mapper>

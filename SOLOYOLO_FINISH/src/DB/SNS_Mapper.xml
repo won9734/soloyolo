@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="soloyolo.SNS">
+<!-- 
+	[ DB ]
+	SNSNO NUMBER PRIMARY KEY, 
+	NICKNAME VARCHAR2( 2000 ) NOT NULL,
+	CONTENT VARCHAR2( 4000 ) NOT NULL,
+	REGDATE DATE DEFAULT SYSDATE,
+	FILEURL VARCHAR2( 2000 )
+	
+	[ DTO ]
+	private int snsno;
+	private String nickname;
+	private String content;
+	private Date regdate;
+	private String fileurl;
+ -->
+	
+	<select id="SNSSearch" parameterType="String" resultType="SNS">
+		SELECT *
+		FROM SNS
+		WHERE NICKNAME = #{nickname}
+		ORDER BY SNSNO DESC
+	</select>
+	
+	<insert id="insertSNS" parameterType="SNS">
+		INSERT INTO SNS
+		VALUES( SNSSEQ.NEXTVAL, #{nickname}, #{content}, SYSDATE, #{fileurl} )
+	</insert>
+</mapper>
